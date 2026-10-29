@@ -89,7 +89,7 @@ A user logs in using a fast 1-click preset selector. Based on their identity, th
 | **FR8** | The `/admin` route must be protected by an Angular Route Guard restricted to site admins.
 
  |
-| **FR9** | The admin console must feature an interactive Bubble UI hierarchy for countries, regions, facilities, and resources.
+| **FR9** | The admin console must feature an interactive Bubble UI hierarchy for countries, regions, facilities, and resources. Under the country level, the hierarchy must include at least four regions: North, South, West, and East.
 
  |
 | **FR10** | The admin console must provide a "+" Scaling Wizard and a 2D Floor Plan upload wizard.
@@ -180,6 +180,7 @@ A user logs in using a fast 1-click preset selector. Based on their identity, th
 * The UI displays an interactive Bubble UI hierarchy for navigating from country down to resource catalog.
 
 
+* Expanding a country bubble must display at least four regional bubbles: North, South, West, and East.
 * Administrators can use a "+" Scaling Wizard form dialog to add new regions and facilities to `facilities.json`.
 
 
