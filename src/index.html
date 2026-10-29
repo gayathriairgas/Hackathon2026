@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Air Liquide Loop Modernization</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .backdrop-blur-frosted {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background-color: rgba(15, 23, 42, 0.75);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans transition-colors duration-200">
+
+  <!-- Top Navigation Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-lg bg-sky-600 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-sky-500/20">
+          AL
+        </div>
+        <div>
+          <span class="text-xl font-bold tracking-tight text-slate-900">Air Liquide</span>
+          <span class="text-xs font-semibold px-2 py-0.5 ml-2 rounded-full bg-sky-100 text-sky-800 border border-sky-200">Loop 2.0</span>
+        </div>
+      </div>
+
+      <!-- Navigation & Mode Indicator -->
+      <div class="flex items-center space-x-4">
+        <div id="routeIndicator" class="text-xs font-medium px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+          <i class="fa-solid fa-compass mr-1"></i> Mode: <span id="currentModeLabel" class="font-bold text-slate-900">Sign-in</span>
+        </div>
+
+        <!-- 1-Click Preset Selector (FR1) -->
+        <div class="relative inline-block text-left">
+          <label class="text-xs font-semibold text-slate-500 mr-2">Quick Persona:</label>
+          <select id="userPresetSelect" class="bg-slate-100 border border-slate-300 text-slate-800 text-xs rounded-lg px-2.5 py-1.5 focus:ring-sky-500 focus:border-sky-500 outline-none font-medium cursor-pointer">
+            <option value="" disabled selected>Select Persona...</option>
+            <option value="ad_user">👤 Legacy AD User (Montreal Loop)</option>
+            <option value="emp_us">🇺🇸 Alex Miller (US Employee)</option>
+            <option value="emp_fr">🇫🇷 Claire Dupont (France Employee)</option>
+            <option value="emp_br">🇧🇷 Lucas Silva (Brazil Employee)</option>
+            <option value="gayathri">🛡️ Gayathri T. (Site Admin)</option>
+          </select>
+        </div>
+
+        <!-- Help Button for Onboarding (FR7) -->
+        <button id="openTutorialBtn" class="text-slate-500 hover:text-sky-600 p-2 rounded-lg hover:bg-slate-100 transition" title="Interactive Walkthrough">
+          <i class="fa-regular fa-circle-question text-lg"></i>
+        </button>
+
+        <!-- Admin Nav Link (FR8) -->
+        <button id="adminNavLink" class="hidden text-xs font-semibold px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100 transition">
+          <i class="fa-solid fa-shield-halved mr-1"></i> Admin Console
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+    <!-- VIEW 1: SIGN IN / SELECTION LANDING -->
+    <section id="viewLogin" class="py-12 flex flex-col items-center justify-center text-center">
+      <div class="max-w-xl w-full bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
+        <div class="w-16 h-16 bg-sky-50 text-sky-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
+          <i class="fa-solid fa-network-wired"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-slate-900 mb-2">Air Liquide Loop Gateway</h2>
+        <p class="text-sm text-slate-500 mb-6">Choose a persona below to demonstrate Dual-Mode Routing, Omah Workspaces, Booking Time-Grids, and Admin Console hierarchies.</p>
+
+        <div class="grid grid-cols-1 gap-3 text-left">
+          <button onclick="selectUser('ad_user')" class="p-3.5 rounded-xl border border-amber-200 bg-amber-50/50 hover:bg-amber-100/60 transition flex items-center justify-between">
+            <div>
+              <p class="text-sm font-bold text-amber-900">Legacy AD User (Canada)</p>
+              <p class="text-xs text-amber-700">Routes to /legacy-loop stark replica with 6 secluded tiles</p>
+            </div>
+            <i class="fa-solid fa-arrow-right text-amber-600 text-sm"></i>
+          </button>
+
+          <button onclick="selectUser('emp_us')" class="p-3.5 rounded-xl border border-slate-200 hover:border-sky-300 hover:bg-sky-50/40 transition flex items-center justify-between">
+            <div>
+              <p class="text-sm font-bold text-slate-800">US Employee (Alex Miller)</p>
+              <p class="text-xs text-slate-500">Routes to /workspace (Houston Innovation Hub & Booking)</p>
+            </div>
+            <i class="fa-solid fa-arrow-right text-sky-600 text-sm"></i>
+          </button>
+
+          <button onclick="selectUser('emp_fr')" class="p-3.5 rounded-xl border border-slate-200 hover:border-sky-300 hover:bg-sky-50/40 transition flex items-center justify-between">
+            <div>
+              <p class="text-sm font-bold text-slate-800">France Employee (Claire Dupont)</p>
+              <p class="text-xs text-slate-500">Routes to /workspace (Paris Head Office Campus & Booking)</p>
+            </div>
+            <i class="fa-solid fa-arrow-right text-sky-600 text-sm"></i>
+          </button>
+
+          <button onclick="selectUser('gayathri')" class="p-3.5 rounded-xl border border-indigo-200 bg-indigo-50/30 hover:bg-indigo-100/60 transition flex items-center justify-between">
+            <div>
+              <p class="text-sm font-bold text-indigo-900">Site Admin (Gayathri T.)</p>
+              <p class="text-xs text-indigo-700">Protected /admin Bubble UI hierarchy + Scaling Wizard</p>
+            </div>
+            <i class="fa-solid fa-arrow-right text-indigo-600 text-sm"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: LEGACY LOOP REPLICA (FR2: /legacy-loop) -->
+    <section id="viewLegacy" class="hidden">
+      <!-- Montreal HQ Banner -->
+      <div class="relative rounded-2xl overflow-hidden mb-8 shadow-md border border-slate-200 bg-slate-800 text-white p-8">
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-800/80 to-transparent z-10"></div>
+        <div class="relative z-20 max-w-lg">
+          <span class="inline-block text-xs uppercase tracking-widest font-bold px-2 py-1 bg-amber-500/20 text-amber-300 rounded mb-2">Legacy Active Directory Session</span>
+          <h1 class="text-3xl font-extrabold mb-1">Montreal Headquarters</h1>
+          <p class="text-sm text-slate-300">Classic Loop interface. Stark isolated center icon arrangement.</p>
+        </div>
+      </div>
+
+      <!-- 6 Secluded Center Tiles -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 max-w-4xl mx-auto my-12">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center text-center hover:shadow-md transition">
+          <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-envelope"></i></div>
+          <span class="font-bold text-sm text-slate-800">Mailbox</span>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center text-center hover:shadow-md transition">
+          <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-calendar-days"></i></div>
+          <span class="font-bold text-sm text-slate-800">Legacy Schedule</span>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center text-center hover:shadow-md transition">
+          <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-folder-open"></i></div>
+          <span class="font-bold text-sm text-slate-800">Documents</span>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center text-center hover:shadow-md transition">
+          <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-users"></i></div>
+          <span class="font-bold text-sm text-slate-800">Directory</span>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center text-center hover:shadow-md transition">
+          <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-phone"></i></div>
+          <span class="font-bold text-sm text-slate-800">Telecom</span>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center text-center hover:shadow-md transition">
+          <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-gear"></i></div>
+          <span class="font-bold text-sm text-slate-800">Preferences</span>
+        </div>
+      </div>
+
+      <div class="text-center mt-8">
+        <button onclick="resetView()" class="text-xs text-sky-600 hover:underline"><i class="fa-solid fa-arrow-left mr-1"></i> Switch User Persona</button>
+      </div>
+    </section>
+
+    <!-- VIEW 3: MODERN WORKSPACE (FR2 & US2: /workspace) -->
+    <section id="viewWorkspace" class="hidden">
+      <!-- Top Quick-Favorites Ribbon (FR4: Strict 2-item ribbon + "+ More Favorites" dropdown) -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-4 mb-6 shadow-sm flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center">
+            <i class="fa-solid fa-star text-amber-400 mr-1.5"></i> Quick Favorites:
+          </span>
+          <div id="favoritesRibbon" class="flex items-center space-x-2">
+            <!-- Dynamically populated 2 items max -->
+          </div>
+        </div>
+
+        <!-- More Favorites Dropdown -->
+        <div class="relative">
+          <button id="moreFavoritesBtn" class="text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 flex items-center transition">
+            <span>+ More Favorites</span>
+            <i class="fa-solid fa-chevron-down ml-1.5 text-[10px]"></i>
+          </button>
+          <div id="moreFavoritesMenu" class="hidden absolute right-0 mt-1 w-56 bg-white border border-slate-200 rounded-xl shadow-lg p-2 z-20 text-xs">
+            <p class="text-[10px] text-slate-400 px-2 py-1 font-semibold uppercase">Additional Saved Spaces</p>
+            <div id="moreFavoritesList" class="space-y-1"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Facility Information & Geolocation Scope (FR3) -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 id="facilityHeaderTitle" class="text-2xl font-bold text-slate-900">Loading Facility...</h2>
+          <p id="facilityHeaderSubtitle" class="text-xs text-slate-500">Dynamically scoped based on employee territory.</p>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <div class="text-xs font-medium text-slate-600 bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-sm">
+            <i class="fa-regular fa-calendar mr-1.5 text-sky-600"></i> Date: <span id="currentDateBadge" class="font-bold text-slate-800">Today</span>
+          </div>
+          <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold flex items-center">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span> Live Sync Enabled
+          </span>
+        </div>
+      </div>
+
+      <!-- Resource List & Workday 9:00 AM - 6:00 PM Grid (FR5) -->
+      <div id="resourceGridContainer" class="space-y-6">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </section>
+
+    <!-- VIEW 4: ADMIN CONSOLE (US4 & FR8, FR9, FR10: /admin) -->
+    <section id="viewAdmin" class="hidden">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <span class="text-xs uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-200">Protected Console</span>
+          <h1 class="text-2xl font-black text-slate-900 mt-1">Enterprise Facility & Scaling Hub</h1>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <!-- + Scaling Wizard Button (FR10) -->
+          <button onclick="openScalingWizard()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-500/20 flex items-center transition">
+            <i class="fa-solid fa-plus mr-1.5"></i> Scaling Wizard
+          </button>
+          <button onclick="openFloorPlanModal()" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold shadow-sm flex items-center transition">
+            <i class="fa-solid fa-map mr-1.5 text-indigo-600"></i> 2D Floor Plan
+          </button>
+        </div>
+      </div>
+
+      <!-- FR9: Interactive Bubble UI Hierarchy -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-8">
+        <h3 class="text-sm font-bold text-slate-800 mb-1 flex items-center">
+          <i class="fa-solid fa-circle-nodes mr-2 text-indigo-600"></i> Interactive Geographic Bubble Hierarchy
+        </h3>
+        <p class="text-xs text-slate-500 mb-6">Click any bubble node to expand down into the 4 mandatory regions (North, South, West, East) and localized facilities.</p>
+
+        <!-- Bubble Canvas / Visualizer -->
+        <div class="bg-slate-50 rounded-xl border border-dashed border-slate-200 p-6 flex flex-wrap gap-4 items-center justify-center min-h-[160px]" id="bubbleContainer">
+          <!-- Bubbles populated via JS -->
+        </div>
+      </div>
+
+      <!-- Room Usage Efficiency Analytics Tracker (NFR4) -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <h3 class="text-sm font-bold text-slate-800 mb-4 flex items-center">
+          <i class="fa-solid fa-chart-pie mr-2 text-sky-600"></i> Room Usage Efficiency & Telemetry Table
+        </h3>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider border-b border-slate-200">
+              <tr>
+                <th class="py-3 px-4">Facility Name</th>
+                <th class="py-3 px-4">Utilization</th>
+                <th class="py-3 px-4">Peak Demand Window</th>
+                <th class="py-3 px-4">Status</th>
+              </tr>
+            </thead>
+            <tbody id="analyticsTableBody" class="divide-y divide-slate-100 font-medium">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL 1: FROSTED BACKDROP BLUR TUTORIAL / SIMULATED VIDEO PLAYER (FR7 & US3) -->
+  <div id="tutorialModal" class="hidden fixed inset-0 z-50 backdrop-blur-frosted flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 max-w-2xl w-full rounded-2xl shadow-2xl overflow-hidden text-white flex flex-col">
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+          <span class="text-xs font-bold text-slate-300 ml-2">Air Liquide Onboarding Walkthrough</span>
+        </div>
+        <button onclick="closeTutorialModal()" class="text-slate-400 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Simulated Video Player Screen -->
+      <div class="relative bg-black aspect-video flex flex-col items-center justify-center p-6 text-center">
+        <div class="w-20 h-20 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center text-3xl mb-4 shadow-lg border border-sky-500/30">
+          <i class="fa-solid fa-play ml-1"></i>
+        </div>
+        <h3 id="videoChapterTitle" class="text-lg font-bold text-white mb-1">Chapter 1: Welcome to the Omah Layout</h3>
+        <p id="videoChapterSubtitle" class="text-xs text-slate-400 max-w-md">Learn how the dual-mode router separates legacy sessions from our modern reservation grid.</p>
+
+        <!-- Chapter Captions Overlay -->
+        <div class="absolute bottom-12 inset-x-4 bg-slate-950/80 rounded-lg p-2 text-center text-xs text-slate-200 border border-slate-800">
+          <i class="fa-solid fa-closed-captioning mr-1 text-sky-400"></i> "All workstations feature live calendar synchronization and instant .ics exports."
+        </div>
+
+        <!-- Playback Scrubber & Controls -->
+        <div class="absolute bottom-0 inset-x-0 bg-slate-900/90 p-3 flex items-center space-x-3 text-xs border-t border-slate-800">
+          <button onclick="prevChapter()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-backward-step"></i></button>
+          <button onclick="toggleVideoPlay()" class="text-sky-400 hover:text-sky-300"><i id="playPauseIcon" class="fa-solid fa-play"></i></button>
+          <button onclick="nextChapter()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-forward-step"></i></button>
+          <div class="flex-1 bg-slate-700 h-1.5 rounded-full overflow-hidden cursor-pointer">
+            <div id="videoProgressBar" class="bg-sky-500 h-full w-1/3 transition-all duration-300"></div>
+          </div>
+          <span class="text-[10px] text-slate-400">01:45 / 03:20</span>
+        </div>
+      </div>
+
+      <div class="p-4 bg-slate-850 flex justify-between items-center bg-slate-950">
+        <span class="text-xs text-slate-400">Need help later? Click the question icon at top right.</span>
+        <button onclick="closeTutorialModal()" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 rounded-lg text-xs font-bold text-white">Got It, Let's Start</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: INTERACTIVE BOOKING & ICS SYNC (FR6 & US2) -->
+  <div id="bookingModal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden">
+      <div class="p-5 border-b border-slate-100 flex justify-between items-center">
+        <div>
+          <h3 class="text-base font-bold text-slate-900" id="bookingModalTitle">Confirm Reservation</h3>
+          <p class="text-xs text-slate-500" id="bookingModalSubtitle">Select options to lock in this time-slot.</p>
+        </div>
+        <button onclick="closeBookingModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="p-5 space-y-4 text-xs">
+        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+          <div class="flex justify-between py-1">
+            <span class="text-slate-500">Resource:</span>
+            <span class="font-bold text-slate-800" id="modalResourceName">-</span>
+          </div>
+          <div class="flex justify-between py-1">
+            <span class="text-slate-500">Scheduled Slot:</span>
+            <span class="font-bold text-sky-700" id="modalSlotTime">-</span>
+          </div>
+          <div class="flex justify-between py-1">
+            <span class="text-slate-500">Booked By:</span>
+            <span class="font-bold text-slate-800" id="modalUserName">-</span>
+          </div>
+        </div>
+
+        <!-- Sync Options (FR6) -->
+        <div>
+          <p class="font-bold text-slate-700 mb-2">Calendar Integration:</p>
+          <div class="grid grid-cols-2 gap-2">
+            <a id="gCalLink" target="_blank" class="px-3 py-2 rounded-lg border border-slate-200 text-center font-bold text-slate-700 hover:bg-slate-50 flex items-center justify-center transition">
+              <i class="fa-brands fa-google text-red-500 mr-1.5"></i> Google Cal
+            </a>
+            <button onclick="downloadIcsFile()" class="px-3 py-2 rounded-lg border border-slate-200 text-center font-bold text-slate-700 hover:bg-slate-50 flex items-center justify-center transition">
+              <i class="fa-solid fa-calendar-arrow-down text-sky-600 mr-1.5"></i> Download .ics
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end space-x-2">
+        <button onclick="closeBookingModal()" class="px-4 py-2 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-white">Cancel</button>
+        <button id="confirmBookingBtn" class="px-4 py-2 rounded-lg bg-sky-600 text-white text-xs font-bold hover:bg-sky-500 shadow-md shadow-sky-500/20">Confirm Booking</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: + SCALING WIZARD DIALOG (FR10) -->
+  <div id="scalingModal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden">
+      <div class="p-5 border-b border-slate-100 flex justify-between items-center">
+        <div>
+          <h3 class="text-base font-bold text-slate-900"><i class="fa-solid fa-plus-circle text-indigo-600 mr-1"></i> Scaling Wizard: Add Facility</h3>
+          <p class="text-xs text-slate-500">Provision a new operational facility into facilities.json</p>
+        </div>
+        <button onclick="closeScalingWizard()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form onsubmit="handleScalingSubmit(event)" class="p-5 space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Facility Name</label>
+          <input type="text" id="scaleFacilityName" required placeholder="e.g. Frankfurt Clean Tech Station" class="w-full border border-slate-200 rounded-lg p-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Country</label>
+            <input type="text" id="scaleCountry" required placeholder="e.g. Germany" class="w-full border border-slate-200 rounded-lg p-2" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Region (Bubble Hierarchy)</label>
+            <select id="scaleRegion" class="w-full border border-slate-200 rounded-lg p-2">
+              <option value="North">North</option>
+              <option value="South">South</option>
+              <option value="West">West</option>
+              <option value="East">East</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Primary Resource Name</label>
+          <input type="text" id="scaleResourceName" required placeholder="e.g. Helium Executive Boardroom" class="w-full border border-slate-200 rounded-lg p-2" />
+        </div>
+
+        <div class="p-4 bg-slate-50 -mx-5 -mb-5 mt-4 flex justify-end space-x-2">
+          <button type="button" onclick="closeScalingWizard()" class="px-4 py-2 rounded-lg border border-slate-200 text-slate-600 font-semibold hover:bg-white">Dismiss</button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-bold hover:bg-indigo-500 shadow-md">Provision Facility</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- APPLICATION LOGIC -->
+  <script>
+    // State
+    let currentUser = null;
+    let allUsers = [];
+    let currentFacilities = [];
+    let favorites = ['res_h_conf_a']; // Default favorite
+    let activeBookingTarget = null;
+    let currentVideoChapter = 1;
+
+    // Load Initial Data
+    window.addEventListener('DOMContentLoaded', async () => {
+      // Set current date
+      const today = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+      document.getElementById('currentDateBadge').textContent = today;
+
+      try {
+        const userRes = await fetch('/data/users.json');
+        allUsers = await userRes.json();
+      } catch (e) {
+        console.warn('Fallback users', e);
+      }
+
+      // Check URL parameters for direct routing (e.g. ?user=gayathri or ?view=workspace)
+      const urlParams = new URLSearchParams(window.location.search);
+      const userParam = urlParams.get('user');
+      if (userParam) {
+        selectUser(userParam);
+      }
+
+      // Preset dropdown listener
+      document.getElementById('userPresetSelect').addEventListener('change', (e) => {
+        selectUser(e.target.value);
+      });
+
+      // Favorites dropdown toggle
+      document.getElementById('moreFavoritesBtn').addEventListener('click', () => {
+        document.getElementById('moreFavoritesMenu').classList.toggle('hidden');
+      });
+
+      document.getElementById('openTutorialBtn').addEventListener('click', openTutorialModal);
+      document.getElementById('adminNavLink').addEventListener('click', () => showView('viewAdmin'));
+    });
+
+    // Dual-Mode Routing Engine (FR1 & FR2)
+    function selectUser(userId) {
+      currentUser = allUsers.find(u => u.id === userId) || { id: userId, role: userId === 'gayathri' ? 'admin' : (userId === 'ad_user' ? 'ad_user' : 'employee'), geography: 'US', name: userId };
+      
+      document.getElementById('userPresetSelect').value = currentUser.id;
+      
+      if (currentUser.role === 'admin') {
+        document.getElementById('adminNavLink').classList.remove('hidden');
+      } else {
+        document.getElementById('adminNavLink').classList.add('hidden');
+      }
+
+      if (currentUser.role === 'ad_user') {
+        showView('viewLegacy');
+        document.getElementById('currentModeLabel').textContent = 'Legacy Loop (/legacy-loop)';
+      } else {
+        showView('viewWorkspace');
+        document.getElementById('currentModeLabel').textContent = 'Modern Workspace (/workspace)';
+        loadFacilityForUser(currentUser);
+      }
+    }
+
+    function showView(viewId) {
+      ['viewLogin', 'viewLegacy', 'viewWorkspace', 'viewAdmin'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(viewId).classList.remove('hidden');
+
+      if (viewId === 'viewAdmin') {
+        document.getElementById('currentModeLabel').textContent = 'Site Admin (/admin)';
+        renderAdminBubbleUI();
+        loadAnalyticsData();
+      }
+    }
+
+    function resetView() {
+      currentUser = null;
+      document.getElementById('userPresetSelect').value = '';
+      showView('viewLogin');
+      document.getElementById('currentModeLabel').textContent = 'Sign-in';
+    }
+
+    // Load Facilities for User's Country (FR3)
+    async function loadFacilityForUser(user) {
+      try {
+        const res = await fetch('/data/facilities.json');
+        const facilities = await res.json();
+        currentFacilities = facilities;
+
+        // Scoped by geography
+        const userFacility = facilities.find(f => f.country.toLowerCase() === (user.geography || 'US').toLowerCase()) || facilities[0];
+
+        document.getElementById('facilityHeaderTitle').textContent = userFacility.name;
+        document.getElementById('facilityHeaderSubtitle').textContent = `${userFacility.city}, ${userFacility.country} (${userFacility.region} Region) — ${userFacility.address}`;
+
+        renderFavoritesRibbon(userFacility);
+        renderWorkdayGrid(userFacility);
+      } catch (e) {
+        console.error('Error loading facilities', e);
+      }
+    }
+
+    // Quick Favorites Ribbon (FR4: Strict 2 items ribbon + dropdown)
+    function renderFavoritesRibbon(facility) {
+      const ribbon = document.getElementById('favoritesRibbon');
+      const dropdown = document.getElementById('moreFavoritesList');
+      ribbon.innerHTML = '';
+      dropdown.innerHTML = '';
+
+      const allResources = facility.resources;
+      const favResources = allResources.filter(r => favorites.includes(r.id));
+      const ribbonItems = favResources.slice(0, 2);
+      const moreItems = favResources.slice(2);
+
+      ribbonItems.forEach(r => {
+        const chip = document.createElement('div');
+        chip.className = 'flex items-center space-x-1.5 bg-sky-50 border border-sky-200 text-sky-900 px-2.5 py-1 rounded-lg text-xs font-semibold shadow-xs';
+        chip.innerHTML = `
+          <span>${r.name}</span>
+          <button onclick="toggleFavorite('${r.id}')" class="text-rose-500 hover:text-rose-600 ml-1"><i class="fa-solid fa-heart text-[10px]"></i></button>
+        `;
+        ribbon.appendChild(chip);
+      });
+
+      if (ribbonItems.length === 0) {
+        ribbon.innerHTML = '<span class="text-xs text-slate-400 italic">No favorites pinned. Click the heart on any resource below!</span>';
+      }
+
+      moreItems.forEach(r => {
+        const item = document.createElement('div');
+        item.className = 'p-1.5 hover:bg-slate-50 rounded flex justify-between items-center text-slate-700 font-medium';
+        item.innerHTML = `
+          <span class="truncate">${r.name}</span>
+          <button onclick="toggleFavorite('${r.id}')" class="text-rose-500"><i class="fa-solid fa-heart text-[10px]"></i></button>
+        `;
+        dropdown.appendChild(item);
+      });
+
+      if (moreItems.length === 0) {
+        dropdown.innerHTML = '<p class="text-[11px] text-slate-400 italic px-2 py-1">No additional favorites.</p>';
+      }
+    }
+
+    function toggleFavorite(resourceId) {
+      if (favorites.includes(resourceId)) {
+        favorites = favorites.filter(id => id !== resourceId);
+      } else {
+        favorites.push(resourceId);
+      }
+      const facility = currentFacilities.find(f => f.country.toLowerCase() === (currentUser?.geography || 'US').toLowerCase()) || currentFacilities[0];
+      renderFavoritesRibbon(facility);
+      renderWorkdayGrid(facility);
+    }
+
+    // Render 9:00 AM to 6:00 PM Time-Slot Grid (FR5)
+    function renderWorkdayGrid(facility) {
+      const container = document.getElementById('resourceGridContainer');
+      container.innerHTML = '';
+
+      facility.resources.forEach(res => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-2xl border border-slate-200 shadow-sm p-5 transition hover:shadow-md';
+        
+        const isFav = favorites.includes(res.id);
+
+        card.innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
+            <div class="flex items-center space-x-3">
+              <button onclick="toggleFavorite('${res.id}')" class="${isFav ? 'text-rose-500' : 'text-slate-300 hover:text-rose-400'} text-lg transition">
+                <i class="fa-solid fa-heart"></i>
+              </button>
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">${res.name}</h4>
+                <p class="text-xs text-slate-500">${res.type} · Capacity: ${res.capacity} people</p>
+              </div>
+            </div>
+
+            <!-- Amenities Badges -->
+            <div class="flex flex-wrap gap-1.5">
+              ${res.amenities.map(a => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">${a}</span>`).join('')}
+            </div>
+          </div>
+
+          <!-- Time Slot Grid -->
+          <div class="mt-4">
+            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Hourly Schedule (9:00 AM — 6:00 PM)</p>
+            <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-2">
+              ${res.slots.map(s => {
+                const isBooked = s.status === 'booked';
+                return `
+                  <button onclick="handleSlotClick('${facility.id}', '${res.id}', '${s.time}', '${s.status}', '${s.bookedBy}')"
+                          class="p-2 rounded-xl border text-center transition flex flex-col items-center justify-center ${
+                            isBooked 
+                              ? 'bg-rose-50 border-rose-200 text-rose-800 hover:bg-rose-100/70' 
+                              : 'bg-emerald-50 border-emerald-200 text-emerald-800 hover:bg-emerald-100/70'
+                          }">
+                    <span class="text-xs font-bold">${s.time}</span>
+                    <span class="text-[9px] uppercase font-bold tracking-tight mt-0.5">${isBooked ? 'Booked' : 'Open'}</span>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Slot click: Book or Release (FR5 & FR11)
+    function handleSlotClick(facilityId, resourceId, time, status, bookedBy) {
+      const facility = currentFacilities.find(f => f.id === facilityId);
+      const resource = facility.resources.find(r => r.id === resourceId);
+
+      if (status === 'booked') {
+        if (confirm(`This slot (${time}) is currently booked. Would you like to release/cancel this reservation?`)) {
+          updateSlotStatus(facilityId, resourceId, time, 'release');
+        }
+      } else {
+        // Open Booking Modal
+        activeBookingTarget = { facilityId, resourceId, resourceName: resource.name, time };
+        document.getElementById('modalResourceName').textContent = resource.name;
+        document.getElementById('modalSlotTime').textContent = `${time} (Today)`;
+        document.getElementById('modalUserName').textContent = currentUser?.name || 'Current User';
+
+        // GCal Link Generation (FR6)
+        const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Reservation:+${encodeURIComponent(resource.name)}&details=Air+Liquide+Loop+Workspace+Booking&location=${encodeURIComponent(facility.name)}`;
+        document.getElementById('gCalLink').href = gCalUrl;
+
+        document.getElementById('bookingModal').classList.remove('hidden');
+      }
+    }
+
+    document.getElementById('confirmBookingBtn').addEventListener('click', () => {
+      if (activeBookingTarget) {
+        updateSlotStatus(activeBookingTarget.facilityId, activeBookingTarget.resourceId, activeBookingTarget.time, 'book');
+        closeBookingModal();
+      }
+    });
+
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+      activeBookingTarget = null;
+    }
+
+    async function updateSlotStatus(facilityId, resourceId, time, action) {
+      // Optimistic UI update
+      const facility = currentFacilities.find(f => f.id === facilityId);
+      const resource = facility.resources.find(r => r.id === resourceId);
+      const slot = resource.slots.find(s => s.time === time);
+      slot.status = action === 'book' ? 'booked' : 'available';
+      slot.bookedBy = action === 'book' ? (currentUser?.id || 'emp_user') : null;
+
+      renderWorkdayGrid(facility);
+
+      // Attempt backend API call if server is running
+      try {
+        await fetch('/api/facilities/slot', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ facilityId, resourceId, time, action, userId: currentUser?.id || 'emp_user' })
+        });
+      } catch (e) {
+        console.log('Static demo mode persistence updated in memory.');
+      }
+    }
+
+    // .ics Calendar Export (FR6)
+    function downloadIcsFile() {
+      if (!activeBookingTarget) return;
+      const icsData = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Air Liquide//Loop Modernization//EN
+BEGIN:VEVENT
+SUMMARY:Air Liquide Booking: ${activeBookingTarget.resourceName}
+DESCRIPTION:Modern Workplace Room Reservation
+STATUS:CONFIRMED
+DTSTART:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+DTEND:${new Date(Date.now() + 3600000).toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+END:VEVENT
+END:VCALENDAR`;
+
+      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute('download', `AirLiquide_Reservation_${activeBookingTarget.time}.ics`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Onboarding Walkthrough & Video Modal (FR7 & US3)
+    function openTutorialModal() {
+      document.getElementById('tutorialModal').classList.remove('hidden');
+    }
+    function closeTutorialModal() {
+      document.getElementById('tutorialModal').classList.add('hidden');
+    }
+
+    const chapters = [
+      { title: "Chapter 1: Dual-Mode Routing", desc: "How standard employees transition seamlessly while legacy users retain familiar layouts." },
+      { title: "Chapter 2: Workday Time-Grid & Favorites", desc: "Locking in 9:00 AM to 6:00 PM slots with one-click Google Calendar & .ics sync." },
+      { title: "Chapter 3: Admin Console & Bubble Hierarchy", desc: "Navigating country nodes across North, South, West, and East regions." }
+    ];
+
+    function nextChapter() {
+      currentVideoChapter = (currentVideoChapter % chapters.length) + 1;
+      updateVideoUI();
+    }
+    function prevChapter() {
+      currentVideoChapter = currentVideoChapter === 1 ? chapters.length : currentVideoChapter - 1;
+      updateVideoUI();
+    }
+    function updateVideoUI() {
+      const c = chapters[currentVideoChapter - 1];
+      document.getElementById('videoChapterTitle').textContent = c.title;
+      document.getElementById('videoChapterSubtitle').textContent = c.desc;
+      document.getElementById('videoProgressBar').style.width = `${(currentVideoChapter / chapters.length) * 100}%`;
+    }
+    function toggleVideoPlay() {
+      const icon = document.getElementById('playPauseIcon');
+      if (icon.classList.contains('fa-play')) {
+        icon.classList.replace('fa-play', 'fa-pause');
+      } else {
+        icon.classList.replace('fa-pause', 'fa-play');
+      }
+    }
+
+    // FR9: Interactive Bubble UI Hierarchy (Admin Console)
+    function renderAdminBubbleUI() {
+      const container = document.getElementById('bubbleContainer');
+      container.innerHTML = `
+        <div class="flex flex-col items-center p-3 rounded-full bg-indigo-50 border-2 border-indigo-300 w-28 h-28 justify-center shadow-md animate-bounce cursor-pointer">
+          <i class="fa-solid fa-globe text-indigo-600 text-lg mb-1"></i>
+          <span class="text-xs font-bold text-indigo-950">Global</span>
+        </div>
+        <i class="fa-solid fa-arrow-right text-slate-300"></i>
+        <!-- 4 Mandatory Regions (North, South, West, East) -->
+        <div class="grid grid-cols-2 gap-2">
+          <div class="px-4 py-2.5 rounded-full bg-sky-50 border border-sky-300 text-sky-800 text-xs font-bold shadow-xs">North Region</div>
+          <div class="px-4 py-2.5 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-bold shadow-xs">South Region</div>
+          <div class="px-4 py-2.5 rounded-full bg-amber-50 border border-amber-300 text-amber-800 text-xs font-bold shadow-xs">West Region</div>
+          <div class="px-4 py-2.5 rounded-full bg-purple-50 border border-purple-300 text-purple-800 text-xs font-bold shadow-xs">East Region</div>
+        </div>
+        <i class="fa-solid fa-arrow-right text-slate-300"></i>
+        <div class="flex flex-col items-center p-3 rounded-2xl bg-white border border-slate-300 shadow-sm text-xs font-bold text-slate-700">
+          <i class="fa-solid fa-building text-slate-500 mb-1"></i>
+          <span>Facilities & Rooms</span>
+        </div>
+      `;
+    }
+
+    async function loadAnalyticsData() {
+      try {
+        const res = await fetch('/data/analytics.json');
+        const data = await res.json();
+        const tbody = document.getElementById('analyticsTableBody');
+        tbody.innerHTML = data.facilityUtilization.map(f => `
+          <tr class="hover:bg-slate-50">
+            <td class="py-3 px-4 font-bold text-slate-800">${f.facility}</td>
+            <td class="py-3 px-4">
+              <div class="flex items-center space-x-2">
+                <div class="w-24 bg-slate-200 h-2 rounded-full overflow-hidden">
+                  <div class="bg-indigo-600 h-full" style="width: ${f.utilizationPercent}%"></div>
+                </div>
+                <span class="text-xs font-semibold text-slate-700">${f.utilizationPercent}%</span>
+              </div>
+            </td>
+            <td class="py-3 px-4 text-slate-500">${f.peakHour}</td>
+            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">Optimal</span></td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        console.warn('Analytics loading error', e);
+      }
+    }
+
+    // FR10: Scaling Wizard
+    function openScalingWizard() {
+      document.getElementById('scalingModal').classList.remove('hidden');
+    }
+    function closeScalingWizard() {
+      document.getElementById('scalingModal').classList.add('hidden');
+    }
+
+    function openFloorPlanModal() {
+      alert("2D Floor Plan Upload Wizard: Select a .svg, .png, or CAD drawing to map smart coordinates.");
+    }
+
+    function handleScalingSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('scaleFacilityName').value;
+      const country = document.getElementById('scaleCountry').value;
+      const region = document.getElementById('scaleRegion').value;
+      const resName = document.getElementById('scaleResourceName').value;
+
+      const newFacility = {
+        id: `fac_${Date.now()}`,
+        name,
+        country,
+        region,
+        city: "Metropolitan Hub",
+        address: "Industrial Loop Blvd",
+        resources: [{
+          id: `res_${Date.now()}`,
+          name: resName,
+          type: "Collaboration Space",
+          capacity: 12,
+          amenities: ["Smart Screen", "IoT Sensors"],
+          slots: [
+            { time: "09:00", status: "available", bookedBy: null },
+            { time: "10:00", status: "available", bookedBy: null },
+            { time: "11:00", status: "available", bookedBy: null }
+          ]
+        }]
+      };
+
+      currentFacilities.push(newFacility);
+      alert(`Success! Facility '${name}' scaled and provisioned into region '${region}'.`);
+      closeScalingWizard();
+    }
+  </script>
+</body>
+</html>

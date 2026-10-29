@@ -1,0 +1,47 @@
+[
+  {
+    "id": "ad_user",
+    "name": "Legacy AD User",
+    "email": "legacy.user@airliquide.com",
+    "role": "ad_user",
+    "geography": "Canada",
+    "preset": true,
+    "theme": "light"
+  },
+  {
+    "id": "emp_us",
+    "name": "Alex Miller",
+    "email": "alex.miller@airliquide.com",
+    "role": "employee",
+    "geography": "US",
+    "preset": true,
+    "theme": "light"
+  },
+  {
+    "id": "emp_fr",
+    "name": "Claire Dupont",
+    "email": "claire.dupont@airliquide.com",
+    "role": "employee",
+    "geography": "France",
+    "preset": true,
+    "theme": "light"
+  },
+  {
+    "id": "emp_br",
+    "name": "Lucas Silva",
+    "email": "lucas.silva@airliquide.com",
+    "role": "employee",
+    "geography": "Brazil",
+    "preset": true,
+    "theme": "dark"
+  },
+  {
+    "id": "gayathri",
+    "name": "Gayathri T.",
+    "email": "gayathri@airliquide.com",
+    "role": "admin",
+    "geography": "US",
+    "preset": true,
+    "theme": "light"
+  }
+]

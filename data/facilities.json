@@ -1,0 +1,264 @@
+[
+  {
+    "Id": "fac_houston_01",
+    "Name": "Houston Innovation Hub",
+    "Country": "US",
+    "Region": "South",
+    "City": "Houston",
+    "Address": "9811 Katy Fwy, Houston, TX",
+    "Resources": [
+      {
+        "Id": "res_h_conf_a",
+        "Name": "Oxygen Collaboration Hall",
+        "Type": "Conference Room",
+        "Capacity": 16,
+        "Amenities": [
+          "Dual 4K Screens",
+          "Video Conferencing",
+          "Whiteboard"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "booked",
+            "BookedBy": "emp_us"
+          },
+          {
+            "Time": "12:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "13:00",
+            "Status": "booked",
+            "BookedBy": "gayathri"
+          },
+          {
+            "Time": "14:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
+      },
+      {
+        "Id": "res_h_desk_01",
+        "Name": "Nitrogen Focus Pod 1",
+        "Type": "Workstation",
+        "Capacity": 1,
+        "Amenities": [
+          "Standing Desk",
+          "Curved UltraWide Monitor",
+          "USB-C Dock"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "12:00",
+            "Status": "booked",
+            "BookedBy": "emp_us"
+          },
+          {
+            "Time": "13:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "14:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Id": "fac_paris_01",
+    "Name": "Paris Head Office Campus",
+    "Country": "France",
+    "Region": "East",
+    "City": "Paris",
+    "Address": "75 Quai d\u0027Orsay, 75007 Paris",
+    "Resources": [
+      {
+        "Id": "res_p_board_01",
+        "Name": "Hydrogen Executive Suite",
+        "Type": "Board Room",
+        "Capacity": 24,
+        "Amenities": [
+          "Immersive Telepresence",
+          "Digital Whiteboard",
+          "Translation Booth"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "12:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "13:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "14:00",
+            "Status": "booked",
+            "BookedBy": "emp_fr"
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Id": "fac_sao_01",
+    "Name": "S\u00E3o Paulo Tech Center",
+    "Country": "Brazil",
+    "Region": "South",
+    "City": "S\u00E3o Paulo",
+    "Address": "Av. das Na\u00E7\u00F5es Unidas, S\u00E3o Paulo",
+    "Resources": [
+      {
+        "Id": "res_sp_lab_01",
+        "Name": "Argon Innovation Lab",
+        "Type": "Innovation Lab",
+        "Capacity": 10,
+        "Amenities": [
+          "Smart Whiteboard",
+          "IoT Testing Rig",
+          "Dual Monitors"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "12:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "13:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "14:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
+      }
+    ]
+  }
+]

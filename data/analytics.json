@@ -1,0 +1,20 @@
+{
+  "totalLogins": 142,
+  "lastUpdated": "2026-10-28T23:30:00Z",
+  "loginsByRole": {
+    "ad_user": 34,
+    "employee": 95,
+    "admin": 13
+  },
+  "facilityUtilization": [
+    { "facility": "Houston Innovation Hub", "utilizationPercent": 68, "peakHour": "10:00 AM - 11:00 AM" },
+    { "facility": "Paris Head Office Campus", "utilizationPercent": 54, "peakHour": "02:00 PM - 03:00 PM" },
+    { "facility": "São Paulo Tech Center", "utilizationPercent": 42, "peakHour": "11:00 AM - 12:00 PM" }
+  ],
+  "recentSessions": [
+    { "user": "gayathri", "durationMinutes": 45, "action": "Floor Plan Scaling Wizard" },
+    { "user": "emp_us", "durationMinutes": 18, "action": "Room Reservation Confirmed" },
+    { "user": "emp_fr", "durationMinutes": 12, "action": "Quick Favorite Toggled" },
+    { "user": "ad_user", "durationMinutes": 7, "action": "Legacy Tile Clicked" }
+  ]
+}
