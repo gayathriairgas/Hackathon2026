@@ -20,7 +20,17 @@ The Air Liquide Loop Modernization is a fully implemented application replacing 
 
 ## 2. Background & problem
 
-The legacy Air Liquide Loop interface featured a stark white space, isolated center icons, and secluded tiles. A modernized workspace is required to improve usability, offering a dual-mode routing engine to support transitioning users, a core booking UI, automated onboarding, and an advanced admin console.
+The legacy Air Liquide Loop interface featured a stark white space, isolated center icons, and secluded tiles, as shown in the reference design `docs/LegacyUI.png`:
+
+![Legacy Air Liquide Loop UI](LegacyUI.png)
+
+*Figure 1: Legacy Loop UI — Montreal Headquarters ("AL Siege Social Montreal") with stark white background, left collapsible navigation bar, and isolated center functional tiles (Maps, Attendance, Meeting rooms, My meetings, New facility incident, Safety).*
+
+A modernized workspace is required to improve usability, transitioning to the contemporary Omah design system illustrated in `docs/UI Design Template.png`:
+
+![Modernized Omah UI Design Template](UI%20Design%20Template.png)
+
+*Figure 2: Modernized Omah Design Template — Features rounded capsule navigation chips (Dashboard, Agents, Property, Calendar, Content), left pastel event pill tags (New Theme Release, My Event, Meet manager, Create New theme, Project Launch, Meeting), modern user avatar header, and an expansive multi-column workday schedule grid with Day/Week/Month toggles and circular availability status dots.*
 
 ## 3. Goals & non-goals
 
@@ -96,6 +106,7 @@ A user logs in using a fast 1-click preset selector. Based on their identity, th
 
  |
 | **FR11** | Releasing or canceling a booked slot must immediately update the availability status and persist the change back to the `facilities.json` file. |
+| **FR12** | The sidebar category tags (New Theme Release, Project Launch, My Event, Meet manager, Create New theme, Meeting) must provide actionable interactive modals: New Theme Release allows switching and applying workspace color palettes; Project Launch manages enterprise initiative rollouts, milestone timelines, and linked war-room reservations; and other event tags allow launching custom calendar workflows. |
 
 ## 7. Non-functional requirements
 
@@ -187,6 +198,17 @@ A user logs in using a fast 1-click preset selector. Based on their identity, th
 * The console displays a tabular report tracking employee logins, session duration, and facility utilization.
 
 
+
+### US5 — Workspace Actionable Event Tags (Theme Release & Project Launch)
+
+**As an** employee, **I want** to click sidebar category tags like "New Theme Release" and "Project Launch" **so that** I can customize my workspace theme and orchestrate major initiative milestones with associated room bookings.
+
+**Acceptance criteria**
+
+* Clicking **"New Theme Release"** opens an interactive modal to preview and apply workspace visual themes (e.g. Modern Slate, Air Liquide Cyan, Midnight Emerald, Executive Purple) with instant theme application.
+* Clicking **"Project Launch"** opens a milestone orchestration modal displaying rollout progress, target delivery dates, and an integrated 1-click War-Room reservation action.
+* Clicking **"Create New theme"** triggers a custom palette builder dialog.
+* Clicking other category tags ("My Event", "Meet manager", "Meeting") filters or initiates appointment scheduling for that specific meeting category.
 
 ## 9. Out of scope (v1)
 

@@ -102,6 +102,7 @@ Use this skill whenever:
      - Hourly time-slot grid (9:00 AM – 6:00 PM) showing real-time slot states.
      - Calendar modal with Google Calendar deep-link generator and downloadable `.ics` generator.
      - Frosted backdrop blur tutorial with interactive onboarding.
+      - Actionable Event Tags: New Theme Release theme switcher, Project Launch milestone orchestrator with War-Room reservation, Meet manager, Create New theme, and Meeting.
    - **Admin Console (`/admin`)**:
      - Interactive Bubble UI hierarchy (Country > North/South/West/East > Facility > Resource).
      - Scaling Wizard and 2D Floor Plan management.

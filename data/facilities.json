@@ -20,8 +20,8 @@
         "Slots": [
           {
             "Time": "09:00",
-            "Status": "available",
-            "BookedBy": null
+            "Status": "booked",
+            "BookedBy": "Alex Miller"
           },
           {
             "Time": "10:00",
@@ -40,8 +40,8 @@
           },
           {
             "Time": "13:00",
-            "Status": "booked",
-            "BookedBy": "gayathri"
+            "Status": "available",
+            "BookedBy": null
           },
           {
             "Time": "14:00",
@@ -93,8 +93,182 @@
           },
           {
             "Time": "12:00",
-            "Status": "booked",
-            "BookedBy": "emp_us"
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "13:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "14:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
+      },
+      {
+        "Id": "res_h_office_01",
+        "Name": "Helium Executive Office",
+        "Type": "Office Room",
+        "Capacity": 4,
+        "Amenities": [
+          "Acoustic Privacy Pod",
+          "Executive Seating",
+          "Ergonomic Desk"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "12:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "13:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "14:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
+      },
+      {
+        "Id": "res_h_conf_b",
+        "Name": "Hydrogen Strategy Suite",
+        "Type": "Conference Room",
+        "Capacity": 12,
+        "Amenities": [
+          "Surround Audio",
+          "Digital Whiteboard",
+          "Telepresence"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "12:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "13:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "14:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
+      },
+      {
+        "Id": "res_h_desk_02",
+        "Name": "Argon Dual-Screen Desk",
+        "Type": "Workstation",
+        "Capacity": 1,
+        "Amenities": [
+          "Dual 27-inch Monitors",
+          "Height Adjustable",
+          "Noise Canceling"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "12:00",
+            "Status": "available",
+            "BookedBy": null
           },
           {
             "Time": "13:00",
@@ -136,7 +310,7 @@
       {
         "Id": "res_p_board_01",
         "Name": "Hydrogen Executive Suite",
-        "Type": "Board Room",
+        "Type": "Conference Room",
         "Capacity": 24,
         "Amenities": [
           "Immersive Telepresence",
@@ -190,6 +364,180 @@
             "BookedBy": null
           }
         ]
+      },
+      {
+        "Id": "res_p_office_01",
+        "Name": "Eiffel Private Office",
+        "Type": "Office Room",
+        "Capacity": 3,
+        "Amenities": [
+          "City View",
+          "Private Meeting Desk",
+          "Acoustic Insulation"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "12:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "13:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "14:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
+      },
+      {
+        "Id": "res_p_desk_01",
+        "Name": "Seine Flexi-Pod 4",
+        "Type": "Workstation",
+        "Capacity": 1,
+        "Amenities": [
+          "Ergonomic Chair",
+          "USB-C Fast Charging",
+          "Dual Screens"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "12:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "13:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "14:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
+      },
+      {
+        "Id": "res_p_conf_02",
+        "Name": "Louvre Boardroom",
+        "Type": "Conference Room",
+        "Capacity": 14,
+        "Amenities": [
+          "4K Projector",
+          "Wireless Presentation",
+          "Whiteboard"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "12:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "13:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "14:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
       }
     ]
   },
@@ -204,12 +552,186 @@
       {
         "Id": "res_sp_lab_01",
         "Name": "Argon Innovation Lab",
-        "Type": "Innovation Lab",
+        "Type": "Conference Room",
         "Capacity": 10,
         "Amenities": [
           "Smart Whiteboard",
           "IoT Testing Rig",
           "Dual Monitors"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "12:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "13:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "14:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
+      },
+      {
+        "Id": "res_sp_desk_01",
+        "Name": "Paulista Dev Station 1",
+        "Type": "Workstation",
+        "Capacity": 1,
+        "Amenities": [
+          "UltraWide Monitor",
+          "Mechanical Keyboard",
+          "Height Adjustable"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "12:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "13:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "14:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
+      },
+      {
+        "Id": "res_sp_office_01",
+        "Name": "Amazonas Private Suite",
+        "Type": "Office Room",
+        "Capacity": 4,
+        "Amenities": [
+          "Video Bar",
+          "Acoustic Paneling",
+          "Private Balcony"
+        ],
+        "Slots": [
+          {
+            "Time": "09:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "10:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "11:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "12:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "13:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "14:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "15:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "16:00",
+            "Status": "available",
+            "BookedBy": null
+          },
+          {
+            "Time": "17:00",
+            "Status": "available",
+            "BookedBy": null
+          }
+        ]
+      },
+      {
+        "Id": "res_sp_conf_02",
+        "Name": "Ibirapuera Sync Room",
+        "Type": "Conference Room",
+        "Capacity": 8,
+        "Amenities": [
+          "Conference Cam",
+          "Digital Whiteboard",
+          "Surround Mic"
         ],
         "Slots": [
           {
